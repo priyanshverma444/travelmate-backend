@@ -62,6 +62,6 @@ export const deleteTrip = asyncHandler(async (req, res) => {
     throw new Error('Not authorized');
   }
 
-  await trip.remove();
+  await trip.deleteOne();
   res.json({ message: 'Trip deleted' });
 });
