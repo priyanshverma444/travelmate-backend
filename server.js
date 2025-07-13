@@ -9,7 +9,22 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
+
+// CORS Configuration: allow frontend from Vercel
+const allowedOrigins = ['https://travelmateplanner.vercel.app'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin like mobile apps or curl
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS not allowed for this origin'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.get('/api/health', (req, res) => {
