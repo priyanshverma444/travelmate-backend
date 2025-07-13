@@ -10,12 +10,14 @@ connectDB();
 
 const app = express();
 
-// CORS Configuration: allow frontend from Vercel
-const allowedOrigins = ['https://travelmateplanner.vercel.app'];
+const allowedOrigins = [
+  'https://travelmateplanner.vercel.app',
+  'http://localhost:5173',
+];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin like mobile apps or curl
+    // allow requests with no origin (like Postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
